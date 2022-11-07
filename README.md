@@ -18,26 +18,27 @@ If bundler is not being used to manage dependencies, install the gem by executin
     
 As CLI:
 ```bash
-    gem install funny_yubikey_generator
-    generate_funny_yubikey -c
+gem install funny_yubikey_generator
+generate_funny_yubikey -c
 ```
+
+![preview.png](preview.png)
 
 In Ruby:
 ```ruby
-    require "funny_yubikey_generator"
-    puts FunnyYubikeyGenerator.generate(colorize: true)
+require "funny_yubikey_generator"
+puts FunnyYubikeyGenerator.generate(colorize: true)
 
-    dictionary = <<~DICO
-          crude
-          blubber
-          futile
-          lutrin
-          interbelligerent
-          reinterference
-    DICO
-    generator = FunnyYubikeyGenerator.new(dictionary: dictionary.split("\n"))
-    puts generator.generate(colorize: true)
-
+dictionary = <<~DICO
+      crude
+      blubber
+      futile
+      lutrin
+      interbelligerent
+      reinterference
+DICO
+generator = FunnyYubikeyGenerator.new(dictionary: dictionary.split("\n"))
+puts generator.generate(colorize: true)
 ```
 
 ## Development
@@ -56,4 +57,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the YubikeyGenerator project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/x4d3/funny_yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the FunnyYubikeyGenerator project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/x4d3/funny_yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
