@@ -4,30 +4,41 @@ require "singleton"
 require "colorize"
 require "set"
 
-class YubikeyGenerator
+class FunnyYubikeyGenerator
   VERSION = "0.1.0"
-
-  include Singleton
-
   COLORS = %i[red green yellow blue magenta cyan]
   private_constant :COLORS
-
   class << self
-    def generate(colorize: true)
+    def initialize_singleton
+      @singleton__instance__ = nil
+      @singleton__mutex__ = Thread::Mutex.new
+    end
+
+    def instance # :nodoc:
+      return @singleton__instance__ if @singleton__instance__
+      @singleton__mutex__.synchronize {
+        return @singleton__instance__ if @singleton__instance__
+        @singleton__instance__ = new
+      }
+      @singleton__instance__
+    end
+
+    def generate(colorize: false)
       instance.generate(colorize: colorize)
     end
   end
 
-  def initialize(dictionary: nil, letters: "cbdefghijklnrtuv".chars.to_set)
-    input = dictionary || File.open(File.join(__dir__, "words.txt"))
-    @dictionary = input.map(&:strip).select { |line|
+  initialize_singleton
+
+  def initialize(dictionary: default_dictionary, letters: "cbdefghijklnrtuv".chars.to_set)
+    @dictionary = dictionary.map(&:strip).select { |line|
       line.chars.all? do |c|
         letters.include?(c)
       end
     }.group_by(&:length)
   end
 
-  def generate(colorize: true)
+  def generate(colorize: false)
     words_lengths = @dictionary.keys
     words = random_partition(40, words_lengths).map do |s|
       @dictionary[s].sample
@@ -36,6 +47,18 @@ class YubikeyGenerator
       words.map!.with_index { |w, i| w.colorize(COLORS[i % COLORS.length]) }
     end
     "/cccc#{words.join}"
+  end
+
+  private
+
+  def default_dictionary
+    [
+      "/usr/share/dict/words",
+      "/usr/dict/word",
+      File.join(__dir__, "words.txt")
+    ].each do |path|
+      return File.open(path) if File.exist?(path)
+    end
   end
 
   def random_partition(target, word_lengths)

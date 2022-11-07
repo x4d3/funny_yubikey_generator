@@ -1,22 +1,42 @@
-# YubikeyGenerator
+# FunnyYubikeyGenerator
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/yubikey_generator`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Generate funny looking [yubikey OTP](https://developers.yubico.com/OTP/OTPs_Explained.html) containing words based on a dictionary.
 
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add yubikey_generator
+    $ bundle add funny_yubikey_generator
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install yubikey_generator
+    $ gem install funny_yubikey_generator
 
 ## Usage
+    
+As CLI:
+```bash
+    gem install funny_yubikey_generator
+    generate_funny_yubikey -c
+```
 
-TODO: Write usage instructions here
+In Ruby:
+```ruby
+    require "funny_yubikey_generator"
+    puts FunnyYubikeyGenerator.generate(colorize: true)
+
+    dictionary = <<~DICO
+          crude
+          blubber
+          futile
+          lutrin
+          interbelligerent
+          reinterference
+    DICO
+    generator = FunnyYubikeyGenerator.new(dictionary: dictionary.split("\n"))
+    puts generator.generate(colorize: true)
+
+```
 
 ## Development
 
@@ -26,7 +46,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/yubikey_generator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/x4d3/funny_yubikey_generator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/x4d3/funny_yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -34,4 +54,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the YubikeyGenerator project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the YubikeyGenerator project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/x4d3/funny_yubikey_generator/blob/master/CODE_OF_CONDUCT.md).
