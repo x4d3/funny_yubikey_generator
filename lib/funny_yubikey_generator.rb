@@ -39,7 +39,7 @@ class FunnyYubikeyGenerator
   end
 
   def generate(colorize: false)
-    words_lengths = @dictionary.keys
+    words_lengths = @dictionary.keys - [1, 2, 3]
     words = random_partition(40, words_lengths).map do |s|
       @dictionary[s].sample
     end
