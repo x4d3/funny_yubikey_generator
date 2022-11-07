@@ -1,5 +1,7 @@
 # FunnyYubikeyGenerator
 
+[![0.2.0](https://badge.fury.io/rb/funny_yubikey_generator.svg)](https://badge.fury.io/rb/funny_yubikey_generator)
+
 Generate funny looking [yubikey OTP](https://developers.yubico.com/OTP/OTPs_Explained.html) containing words based on a dictionary.
 
 ## Installation
