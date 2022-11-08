@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |spec|
   spec.name = "funny_yubikey_generator"
-  spec.version = "0.3.0"
+  spec.version = "0.4.0"
   spec.authors = ["Xavier Delamotte"]
   spec.email = ["git@xade.eu"]
 
-  spec.summary = "Generates fun yubikeys"
-  spec.description = "Generates fun yubikeys"
+  spec.summary = "Generate funny looking yubikey OTP containing words based on a dictionary."
+  spec.description = "Generate funny looking yubikey OTP containing words based on a dictionary."
   spec.homepage = "https://github.com/x4d3/funny_yubikey_generator"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"

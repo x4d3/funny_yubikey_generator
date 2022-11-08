@@ -6,7 +6,7 @@ class FunnyYubikeyGeneratorTest < Minitest::Test
   YUBI_COMMAND = %r{^/(cccc([cbdefghijklnrtuv]{40}|[cbsftdhuneikpglv]{40})|jjjj[jxe.uidchtnbpygk]{40})$}
 
   def test_generate
-    100.times do
+    1000.times do
       word = FunnyYubikeyGenerator.generate
       assert YUBI_COMMAND === word
     end
@@ -22,8 +22,8 @@ class FunnyYubikeyGeneratorTest < Minitest::Test
       reinterference
     DICO
 
-    generator = FunnyYubikeyGenerator.from_dictionary(dictionary.split("\n"))
-    100.times do
+    generator = FunnyYubikeyGenerator.from_dictionary(dictionary)
+    1000.times do
       word = generator.generate
       assert YUBI_COMMAND === word
     end

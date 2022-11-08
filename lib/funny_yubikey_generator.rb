@@ -8,8 +8,8 @@ require "yaml"
 class FunnyYubikeyGenerator
   include Singleton
   COLORS = %i[red green yellow blue magenta cyan]
-  LETTERS = "cbdefghijklnrtuv".chars.to_set
-
+  LETTERS = "cbdefghijklnrtuv"
+  WORD_REGEX = /^[#{Regexp.quote(LETTERS)}]+{4,}$/
   private_constant :COLORS
   private_constant :LETTERS
 
@@ -20,9 +20,7 @@ class FunnyYubikeyGenerator
     end
 
     def filter_and_index_words(dictionary)
-      dictionary.map(&:strip).select { |line|
-        line.size > 3 && line.chars.all? { |c| LETTERS.include?(c) }
-      }.group_by(&:length)
+      dictionary.scan(WORD_REGEX).group_by(&:length)
     end
 
     def generate(colorize: false)

@@ -1,6 +1,6 @@
 # FunnyYubikeyGenerator
 
-[![0.3.0](https://badge.fury.io/rb/funny_yubikey_generator.svg)](https://badge.fury.io/rb/funny_yubikey_generator)
+[![Gem Version](https://badge.fury.io/rb/funny_yubikey_generator.svg)](https://badge.fury.io/rb/funny_yubikey_generator)
 
 Generate funny looking [yubikey OTP](https://developers.yubico.com/OTP/OTPs_Explained.html) containing words based on a dictionary.
 
@@ -37,7 +37,7 @@ dictionary = <<~DICO
       interbelligerent
       reinterference
 DICO
-generator = FunnyYubikeyGenerator.from_dictionary(dictionary.split("\n"))
+generator = FunnyYubikeyGenerator.from_dictionary(dictionary)
 puts generator.generate(colorize: true)
 
 generator = FunnyYubikeyGenerator.from_dictionary(File.open("/usr/share/dict/words"))
