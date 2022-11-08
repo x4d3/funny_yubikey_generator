@@ -40,7 +40,7 @@ DICO
 generator = FunnyYubikeyGenerator.from_dictionary(dictionary)
 puts generator.generate(colorize: true)
 
-generator = FunnyYubikeyGenerator.from_dictionary(File.open("/usr/share/dict/words"))
+generator = FunnyYubikeyGenerator.from_dictionary(File.read("/usr/share/dict/words"))
 puts generator.generate(colorize: false)
 ```
 

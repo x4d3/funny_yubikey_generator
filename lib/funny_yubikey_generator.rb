@@ -2,8 +2,6 @@
 
 require "singleton"
 require "colorize"
-require "set"
-require "yaml"
 
 class FunnyYubikeyGenerator
   include Singleton
@@ -12,15 +10,16 @@ class FunnyYubikeyGenerator
   WORD_REGEX = /^[#{Regexp.quote(LETTERS)}]+{4,}$/
   private_constant :COLORS
   private_constant :LETTERS
+  private_constant :WORD_REGEX
 
   class << self
     def from_dictionary(dictionary)
-      indexed_words = filter_and_index_words(dictionary)
-      new(indexed_words: indexed_words)
+      words = filter_words(dictionary)
+      new(words: words)
     end
 
-    def filter_and_index_words(dictionary)
-      dictionary.scan(WORD_REGEX).group_by(&:length)
+    def filter_words(dictionary)
+      dictionary.scan(WORD_REGEX)
     end
 
     def generate(colorize: false)
@@ -28,8 +27,8 @@ class FunnyYubikeyGenerator
     end
   end
 
-  def initialize(indexed_words: load_default_indexed_words)
-    @indexed_words = indexed_words
+  def initialize(words: load_default_words)
+    @indexed_words = words.group_by(&:length)
   end
 
   def generate(colorize: false)
@@ -44,8 +43,9 @@ class FunnyYubikeyGenerator
 
   private
 
-  def load_default_indexed_words
-    YAML.load_file(File.join(__dir__, "indexed_words.yaml"))
+  def load_default_words
+    default_file_path = File.join(__dir__, "words.txt")
+    File.readlines(default_file_path, chomp: true)
   end
 
   def random_partition(target, word_lengths)

@@ -27,7 +27,7 @@ end.parse!
 
 generator = if dictionary
   raise "Could not find file #{dictionary}" unless File.exist?(dictionary)
-  FunnyYubikeyGenerator.from_dictionary(File.open(dictionary))
+  FunnyYubikeyGenerator.from_dictionary(File.read(dictionary))
 else
   FunnyYubikeyGenerator.instance
 end
