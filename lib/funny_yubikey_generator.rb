@@ -7,7 +7,6 @@ require "yaml"
 
 class FunnyYubikeyGenerator
   include Singleton
-  VERSION = "0.3.0"
   COLORS = %i[red green yellow blue magenta cyan]
   LETTERS = "cbdefghijklnrtuv".chars.to_set
 

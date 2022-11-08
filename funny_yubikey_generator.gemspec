@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "lib/funny_yubikey_generator"
-
 Gem::Specification.new do |spec|
   spec.name = "funny_yubikey_generator"
-  spec.version = FunnyYubikeyGenerator::VERSION
+  spec.version = "0.3.0"
   spec.authors = ["Xavier Delamotte"]
   spec.email = ["git@xade.eu"]
 

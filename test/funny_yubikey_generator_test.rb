@@ -3,10 +3,6 @@
 require "test_helper"
 
 class FunnyYubikeyGeneratorTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::FunnyYubikeyGenerator::VERSION
-  end
-
   YUBI_COMMAND = %r{^/(cccc([cbdefghijklnrtuv]{40}|[cbsftdhuneikpglv]{40})|jjjj[jxe.uidchtnbpygk]{40})$}
 
   def test_generate

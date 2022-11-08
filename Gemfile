@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in yubikey_generator.gemspec
+# Specify your gem's dependencies in funny_yubikey_generator.gemspec
 gemspec
 
 gem "rake", "~> 13.0"
