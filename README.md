@@ -1,6 +1,9 @@
 # FunnyYubikeyGenerator
 
+[![Ruby CI](https://github.com/x4d3/funny_yubikey_generator/actions/workflows/main.yml/badge.svg)](https://github.com/x4d3/funny_yubikey_generator/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/funny_yubikey_generator.svg)](https://badge.fury.io/rb/funny_yubikey_generator)
+
+
 
 Generate funny looking [yubikey OTP](https://developers.yubico.com/OTP/OTPs_Explained.html) containing words based on a dictionary.
 
