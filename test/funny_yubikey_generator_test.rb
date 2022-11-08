@@ -26,7 +26,7 @@ class FunnyYubikeyGeneratorTest < Minitest::Test
       reinterference
     DICO
 
-    generator = FunnyYubikeyGenerator.new(dictionary: dictionary.split("\n"))
+    generator = FunnyYubikeyGenerator.from_dictionary(dictionary.split("\n"))
     100.times do
       word = generator.generate
       assert YUBI_COMMAND === word

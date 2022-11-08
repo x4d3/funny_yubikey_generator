@@ -3,24 +3,27 @@
 require "singleton"
 require "colorize"
 require "set"
+require "yaml"
 
 class FunnyYubikeyGenerator
-  VERSION = "0.2.0"
+  include Singleton
+  VERSION = "0.3.0"
   COLORS = %i[red green yellow blue magenta cyan]
+  LETTERS = "cbdefghijklnrtuv".chars.to_set
+
   private_constant :COLORS
+  private_constant :LETTERS
+
   class << self
-    def initialize_singleton
-      @singleton__instance__ = nil
-      @singleton__mutex__ = Thread::Mutex.new
+    def from_dictionary(dictionary)
+      indexed_words = filter_and_index_words(dictionary)
+      new(indexed_words: indexed_words)
     end
 
-    def instance # :nodoc:
-      return @singleton__instance__ if @singleton__instance__
-      @singleton__mutex__.synchronize {
-        return @singleton__instance__ if @singleton__instance__
-        @singleton__instance__ = new
-      }
-      @singleton__instance__
+    def filter_and_index_words(dictionary)
+      dictionary.map(&:strip).select { |line|
+        line.size > 3 && line.chars.all? { |c| LETTERS.include?(c) }
+      }.group_by(&:length)
     end
 
     def generate(colorize: false)
@@ -28,20 +31,13 @@ class FunnyYubikeyGenerator
     end
   end
 
-  initialize_singleton
-
-  def initialize(dictionary: default_dictionary, letters: "cbdefghijklnrtuv".chars.to_set)
-    @dictionary = dictionary.map(&:strip).select { |line|
-      line.chars.all? do |c|
-        letters.include?(c)
-      end
-    }.group_by(&:length)
+  def initialize(indexed_words: load_default_indexed_words)
+    @indexed_words = indexed_words
   end
 
   def generate(colorize: false)
-    words_lengths = @dictionary.keys - [1, 2, 3]
-    words = random_partition(40, words_lengths).map do |s|
-      @dictionary[s].sample
+    words = random_partition(40, @indexed_words.keys).map do |s|
+      @indexed_words[s].sample
     end
     if colorize
       words.map!.with_index { |w, i| w.colorize(COLORS[i % COLORS.length]) }
@@ -51,14 +47,8 @@ class FunnyYubikeyGenerator
 
   private
 
-  def default_dictionary
-    [
-      "/usr/share/dict/words",
-      "/usr/dict/word",
-      File.join(__dir__, "words.txt")
-    ].each do |path|
-      return File.open(path) if File.exist?(path)
-    end
+  def load_default_indexed_words
+    YAML.load_file(File.join(__dir__, "indexed_words.yaml"))
   end
 
   def random_partition(target, word_lengths)
