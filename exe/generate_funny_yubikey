@@ -4,10 +4,11 @@ require "optparse"
 
 colorize = false
 dictionary = nil
+number = 1
 
 OptionParser.new do |opts|
   opts.banner = "Usage: generate_funny_yubikey [options]"
-  opts.separator "Generate a yubikey TOP containing words"
+  opts.separator "Generate a yubikey TOP containing english words"
   opts.separator "Example: generate_funny_yubikey -c"
 
   opts.separator ""
@@ -20,16 +21,24 @@ OptionParser.new do |opts|
   opts.on("-c", "--color", "Output with colors") do
     colorize = true
   end
-  opts.on("-d", "--dictionary[=DICTIONARY]", "path to the file containing the list of words that will be used") do |dico|
+  opts.on("-n [NUMBER]", "--number", Integer, "Generate NUMBER Yubikey TOP") do |n|
+    number = n if n
+  end
+  opts.on("-d [DICTIONARY]", "--dictionary", "Path to the file containing the list of words to pick from") do |dico|
     dictionary = dico
   end
 end.parse!
 
 generator = if dictionary
-  raise "Could not find file #{dictionary}" unless File.exist?(dictionary)
-  FunnyYubikeyGenerator.from_dictionary(File.read(dictionary))
+  path = File.expand_path(dictionary)
+  unless File.exist?(path)
+    warn("Could not find file: #{dictionary}")
+    exit 1
+  end
+  FunnyYubikeyGenerator.from_dictionary(File.read(path))
 else
   FunnyYubikeyGenerator.instance
 end
-
-puts generator.generate(colorize: colorize)
+number.times do
+  puts generator.generate(colorize: colorize)
+end

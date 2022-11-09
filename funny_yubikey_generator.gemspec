@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "funny_yubikey_generator"
-  spec.version = "0.5.0"
+  spec.version = "0.6.0"
   spec.authors = ["Xavier Delamotte"]
   spec.email = ["git@xade.eu"]
 
