@@ -7,7 +7,7 @@ class FunnyYubikeyGenerator
   include Singleton
   COLORS = %i[red green yellow blue magenta cyan]
   LETTERS = "cbdefghijklnrtuv"
-  WORD_REGEX = /^[#{Regexp.quote(LETTERS)}]+{4,}$/
+  WORD_REGEX = /[#{Regexp.quote(LETTERS)}]+{4,}$/m
   private_constant :COLORS
   private_constant :LETTERS
   private_constant :WORD_REGEX
