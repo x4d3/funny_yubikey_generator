@@ -7,7 +7,7 @@ class FunnyYubikeyGenerator
   include Singleton
   COLORS = %i[red green yellow blue magenta cyan]
   LETTERS = "cbdefghijklnrtuv"
-  WORD_REGEX = /[#{Regexp.quote(LETTERS)}]+{4,}$/m
+  WORD_REGEX = /^[#{Regexp.quote(LETTERS)}]+{4,}[\r\n]+/m
   private_constant :COLORS
   private_constant :LETTERS
   private_constant :WORD_REGEX
@@ -19,7 +19,7 @@ class FunnyYubikeyGenerator
     end
 
     def filter_words(dictionary)
-      dictionary.scan(WORD_REGEX)
+      dictionary.scan(WORD_REGEX).map(&:chomp)
     end
 
     def generate(colorize: false)
