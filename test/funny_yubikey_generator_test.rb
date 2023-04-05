@@ -28,4 +28,13 @@ class FunnyYubikeyGeneratorTest < Minitest::Test
       assert YUBI_COMMAND === word
     end
   end
+
+  def test_with_different_ending
+    dictionary = File.read(File.expand_path("./francais.txt", __dir__))
+    generator = FunnyYubikeyGenerator.from_dictionary(dictionary)
+    100.times do
+      word = generator.generate
+      assert YUBI_COMMAND === word
+    end
+  end
 end
